@@ -1,68 +1,83 @@
-// import stuff
 import { LitElement, html, css } from 'lit';
 
 export class TvChannel extends LitElement {
-  // defaults
+  static count = 1; // Start the count at 1
+
   constructor() {
     super();
     this.title = '';
     this.presenter = '';
+    this.number = TvChannel.count++; // Assign a number to each instance
   }
-  // convention I enjoy using to define the tag's name
+
   static get tag() {
     return 'tv-channel';
   }
-  // LitElement convention so we update render() when values change
+
   static get properties() {
     return {
       title: { type: String },
       presenter: { type: String },
+      number: { type: Number },
     };
   }
-  // LitElement convention for applying styles JUST to our element
+
   static get styles() {
     return css`
-        :host {
-            display: block;
-            width: 210px;
-            height: 48px;
-            box-sizing: border-box;
-            margin-bottom: 16px;
-        }
+      :host {
+        display: block;
+        box-sizing: border-box;
+        margin-bottom: 16px;
+        padding-left: 24px; /* Adjust padding to accommodate the number */
+        position: relative; /* Needed to position the number correctly */
+      }
 
-        .wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: start; /* Align content to the start to not stretch the title */
-            padding: 4px;
-            background-color: #eeeeee;
-            width: 100%;
-            height: 100%;
-            box-sizing: border-box;
-            overflow: hidden; /* Ensures that all content is clipped to the element's size */
-        }
+      .wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        padding: 4px;
+        background-color: #eeeeee;
+        width: 210px;
+        height: 48px;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
 
-        h3, h4 {
-            margin: 0;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            font-size: smaller;
-            flex-shrink: 1; /* Allows these elements to shrink to prevent overflow */
-        }
+      h3, h4 {
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: smaller;
+        flex-shrink: 1;
+      }
 
+      .number-circle {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: blue;
+        color: white;
+        text-align: center;
+        line-height: 20px; /* Aligns text vertically */
+        position: absolute;
+        left: 0; /* Align to the left side */
+        top: 50%;
+        transform: translateY(-50%); /* Center vertically */
+      }
     `;
   }
-  // LitElement rendering template of your element
+
   render() {
     return html`
       <div class="wrapper">
+        <div class="number-circle">${this.number}</div>
         <h3>${this.title}</h3>
         <h4>${this.presenter}</h4>
-        <slot></slot>
-      </div>  
-      `;
+      </div>
+    `;
   }
 }
-// tell the browser about our tag and class it should run when it sees it
+
 customElements.define(TvChannel.tag, TvChannel);
