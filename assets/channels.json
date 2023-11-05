@@ -13,14 +13,14 @@
         "indent": 0,
         "location": "hax-wp-killer.html",
         "slug": "hax-wp-killer",
-        "order": 0,
+        "order": 1,
         "parent": null,
-        "title": "HAX: Wordpress Killer",
+        "title": "Introduction",
         "description": "The future we need, not the future we have.",
         "metadata": {
           "source": "https://www.youtube.com/watch?v=9MT-BNuUCpM",
           "timecode": 0,
-          "author":"Bryan Ollendyke",
+          "author": "Bryan Ollendyke",
           "created": 1697033522,
           "updated": 1697034021
         }
@@ -30,9 +30,128 @@
         "indent": 0,
         "location": "this-is-water.html",
         "slug": "this-is-water",
-        "order": 0,
+        "order": 2,
         "parent": null,
-        "title": "This, is water",
+        "title": "Getting set up & exploring the Playground",
+        "description": "What is water?",
+        "metadata": {
+          "source": "https://www.youtube.com/watch?v=eC7xzavzEKY",
+          "timecode": 45,
+          "author":"David Foster Wallace",
+          "created": 1697033522,
+          "updated": 1697034021
+        }
+      },
+      {
+        "id": "item-abc-456-789",
+        "indent": 0,
+        "location": "this-is-water.html",
+        "slug": "this-is-water",
+        "order": 3,
+        "parent": null,
+        "title": "Define A Custom Element",
+        "description": "What is water?",
+        "metadata": {
+          "source": "https://www.youtube.com/watch?v=eC7xzavzEKY",
+          "timecode": 45,
+          "author":"David Foster Wallace",
+          "created": 1697033522,
+          "updated": 1697034021
+        }
+      },
+      {
+        "id": "item-abc-456-789",
+        "indent": 0,
+        "location": "this-is-water.html",
+        "slug": "this-is-water",
+        "order": 4,
+        "parent": null,
+        "title": "Shadow DOM",
+        "description": "What is water?",
+        "metadata": {
+          "source": "https://www.youtube.com/watch?v=eC7xzavzEKY",
+          "timecode": 45,
+          "author":"David Foster Wallace",
+          "created": 1697033522,
+          "updated": 1697034021
+        }
+      },
+      {
+        "id": "item-abc-456-789",
+        "indent": 0,
+        "location": "this-is-water.html",
+        "slug": "this-is-water",
+        "order": 5,
+        "parent": null,
+        "title": "HTML Templates",
+        "description": "What is water?",
+        "metadata": {
+          "source": "https://www.youtube.com/watch?v=eC7xzavzEKY",
+          "timecode": 45,
+          "author":"David Foster Wallace",
+          "created": 1697033522,
+          "updated": 1697034021
+        }
+      },
+      {
+        "id": "item-abc-456-789",
+        "indent": 0,
+        "location": "this-is-water.html",
+        "slug": "this-is-water",
+        "order": 6,
+        "parent": null,
+        "title": "Adding Functionality",
+        "description": "What is water?",
+        "metadata": {
+          "source": "https://www.youtube.com/watch?v=eC7xzavzEKY",
+          "timecode": 45,
+          "author":"David Foster Wallace",
+          "created": 1697033522,
+          "updated": 1697034021
+        }
+      },
+      {
+        "id": "item-abc-456-789",
+        "indent": 0,
+        "location": "this-is-water.html",
+        "slug": "this-is-water",
+        "order": 7,
+        "parent": null,
+        "title": "Lit-html",
+        "description": "What is water?",
+        "metadata": {
+          "source": "https://www.youtube.com/watch?v=eC7xzavzEKY",
+          "timecode": 45,
+          "author":"David Foster Wallace",
+          "created": 1697033522,
+          "updated": 1697034021
+        }
+      },
+      {
+        "id": "item-abc-456-789",
+        "indent": 0,
+        "location": "this-is-water.html",
+        "slug": "this-is-water",
+        "order": 8,
+        "parent": null,
+        "title": "LitElement",
+        "description": "What is water?",
+        "metadata": {
+          "source": "https://www.youtube.com/watch?v=eC7xzavzEKY",
+          "timecode": 45,
+          "author":"David Foster Wallace",
+          "created": 1697033522,
+          "updated": 1697034021
+        }
+      },
+      {
+        "id": "item-abc-456-789",
+        "indent": 0,
+        "location": "this-is-water.html",
+        "slug": "this-is-water",
+        "order": 9,
+        "parent": null,
+        "title": "Congratulations",
         "description": "What is water?",
         "metadata": {
           "source": "https://www.youtube.com/watch?v=eC7xzavzEKY",
@@ -42,6 +161,7 @@
           "updated": 1697034021
         }
       }
+      
     ]
   }
 }
