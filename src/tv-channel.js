@@ -22,32 +22,35 @@ export class TvChannel extends LitElement {
   // LitElement convention for applying styles JUST to our element
   static get styles() {
     return css`
-     :host {
-            display: block; /* Changed to block to contain the flex item */
-            width: 210px; /* Set the width of the host */
-            height: 48px; /* Set the height of the host */
-            box-sizing: border-box; /* Include padding and border in the element's total width and height */
-            margin-bottom: 16px; /* Add space between the items */
+        :host {
+            display: block;
+            width: 210px;
+            height: 48px;
+            box-sizing: border-box;
+            margin-bottom: 16px;
         }
 
         .wrapper {
-            display: flex; /* Use flexbox to align items */
-            align-items: center; /* Center items vertically */
-            justify-content: center; /* Center items horizontally */
-            padding: 4px; /* Adjust padding to fit the content within 210x48 size */
+            display: flex;
+            align-items: center;
+            justify-content: start; /* Align content to the start to not stretch the title */
+            padding: 4px;
             background-color: #eeeeee;
-            width: 100%; /* Use the full width provided by the host */
-            height: 100%; /* Use the full height provided by the host */
-            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            overflow: hidden; /* Ensures that all content is clipped to the element's size */
         }
 
         h3, h4 {
-            margin: 0; /* Remove default margins */
-            white-space: nowrap; /* Prevent wrapping */
-            overflow: hidden; /* Hide overflow */
-            text-overflow: ellipsis; /* Add ellipsis for overflow text */
-            font-size: smaller; /* Adjust font size to fit the container */
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: smaller;
+            flex-shrink: 1; /* Allows these elements to shrink to prevent overflow */
         }
+
     `;
   }
   // LitElement rendering template of your element
