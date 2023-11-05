@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit';
 
 export class TvChannel extends LitElement {
-  static count = 1; // Static counter to keep track of instance numbers
+  static count = 0; // Static counter to keep track of instance numbers
 
   constructor() {
     super();
