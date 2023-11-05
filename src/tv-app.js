@@ -58,7 +58,7 @@ export class TvApp extends LitElement {
       </div>
       <!-- dialog -->
       <sl-dialog label="Dialog" class="dialog">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        This should change the content box to be whatever heading was clicked on.
         <sl-button slot="footer" variant="primary" @click="${this.closeDialog}">Close</sl-button>
       </sl-dialog>
     `;
