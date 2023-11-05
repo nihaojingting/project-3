@@ -1,13 +1,13 @@
 import { LitElement, html, css } from 'lit';
 
 export class TvChannel extends LitElement {
-  static count = 1; // Start the count at 1
+  static count = 1; // Static counter to keep track of instance numbers
 
   constructor() {
     super();
     this.title = '';
     this.presenter = '';
-    this.number = TvChannel.count++; // Assign a number to each instance
+    this.number = TvChannel.count++; // Assign a sequential number to each instance
   }
 
   static get tag() {
@@ -18,7 +18,7 @@ export class TvChannel extends LitElement {
     return {
       title: { type: String },
       presenter: { type: String },
-      number: { type: Number },
+      number: { type: Number }, // New property for the numbering
     };
   }
 
@@ -28,8 +28,6 @@ export class TvChannel extends LitElement {
         display: block;
         box-sizing: border-box;
         margin-bottom: 16px;
-        padding-left: 24px; /* Adjust padding to accommodate the number */
-        position: relative; /* Needed to position the number correctly */
       }
 
       .wrapper {
@@ -41,30 +39,34 @@ export class TvChannel extends LitElement {
         width: 210px;
         height: 48px;
         box-sizing: border-box;
+        position: relative; /* Adjusted for positioning the circle */
         overflow: hidden;
+      }
+
+      .number-circle {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: blue;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75em; /* Adjust font size as needed */
+        position: absolute;
+        left: 8px; /* Adjust left as needed */
+        top: 50%;
+        transform: translateY(-50%); /* Center vertically */
       }
 
       h3, h4 {
         margin: 0;
+        margin-left: 36px; /* Adjust left margin to make space for the number */
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         font-size: smaller;
         flex-shrink: 1;
-      }
-
-      .number-circle {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background-color: blue;
-        color: white;
-        text-align: center;
-        line-height: 20px; /* Aligns text vertically */
-        position: absolute;
-        left: 0; /* Align to the left side */
-        top: 50%;
-        transform: translateY(-50%); /* Center vertically */
       }
     `;
   }
