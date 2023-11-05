@@ -15,7 +15,7 @@
         "slug": "hax-wp-killer",
         "order": 1,
         "parent": null,
-        "title": "Introduction",
+        "title": "Get enough sleep",
         "description": "The future we need, not the future we have.",
         "metadata": {
           "source": "https://www.youtube.com/watch?v=9MT-BNuUCpM",
@@ -32,7 +32,7 @@
         "slug": "this-is-water",
         "order": 2,
         "parent": null,
-        "title": "Getting set up & exploring the Playground",
+        "title": "Dress appropriately",
         "description": "What is water?",
         "metadata": {
           "source": "https://www.youtube.com/watch?v=eC7xzavzEKY",
@@ -49,7 +49,7 @@
         "slug": "this-is-water",
         "order": 3,
         "parent": null,
-        "title": "Define A Custom Element",
+        "title": "Be a little early (or at least on time)",
         "description": "What is water?",
         "metadata": {
           "source": "https://www.youtube.com/watch?v=eC7xzavzEKY",
@@ -66,7 +66,7 @@
         "slug": "this-is-water",
         "order": 4,
         "parent": null,
-        "title": "Shadow DOM",
+        "title": "Smile and make eye contact",
         "description": "What is water?",
         "metadata": {
           "source": "https://www.youtube.com/watch?v=eC7xzavzEKY",
@@ -83,7 +83,7 @@
         "slug": "this-is-water",
         "order": 5,
         "parent": null,
-        "title": "HTML Templates",
+        "title": "Introduce yourself",
         "description": "What is water?",
         "metadata": {
           "source": "https://www.youtube.com/watch?v=eC7xzavzEKY",
@@ -100,7 +100,7 @@
         "slug": "this-is-water",
         "order": 6,
         "parent": null,
-        "title": "Adding Functionality",
+        "title": "Take initiative",
         "description": "What is water?",
         "metadata": {
           "source": "https://www.youtube.com/watch?v=eC7xzavzEKY",
@@ -117,7 +117,7 @@
         "slug": "this-is-water",
         "order": 7,
         "parent": null,
-        "title": "Lit-html",
+        "title": "Ask questions",
         "description": "What is water?",
         "metadata": {
           "source": "https://www.youtube.com/watch?v=eC7xzavzEKY",
@@ -134,7 +134,7 @@
         "slug": "this-is-water",
         "order": 8,
         "parent": null,
-        "title": "LitElement",
+        "title": "Listen and take notes",
         "description": "What is water?",
         "metadata": {
           "source": "https://www.youtube.com/watch?v=eC7xzavzEKY",
@@ -151,7 +151,24 @@
         "slug": "this-is-water",
         "order": 9,
         "parent": null,
-        "title": "Congratulations",
+        "title": "Put your phone away",
+        "description": "What is water?",
+        "metadata": {
+          "source": "https://www.youtube.com/watch?v=eC7xzavzEKY",
+          "timecode": 45,
+          "author":"David Foster Wallace",
+          "created": 1697033522,
+          "updated": 1697034021
+        }
+      },
+      {
+        "id": "item-abc-456-789",
+        "indent": 0,
+        "location": "this-is-water.html",
+        "slug": "this-is-water",
+        "order": 10,
+        "parent": null,
+        "title": "Be friendly but professional",
         "description": "What is water?",
         "metadata": {
           "source": "https://www.youtube.com/watch?v=eC7xzavzEKY",
