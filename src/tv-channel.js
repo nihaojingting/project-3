@@ -22,13 +22,19 @@ export class TvChannel extends LitElement {
   // LitElement convention for applying styles JUST to our element
   static get styles() {
     return css`
-      :host {
-        display: inline-flex;
-      }
-      .wrapper {
-        padding: 16px;
-        background-color: #eeeeee;
-      }
+     :host {
+            display: flex;      /* Changed from inline-flex to flex */
+            flex-direction: column; /* Stack children vertically */
+            align-items: flex-start; /* Align items to the start of the flex container */
+}
+
+.wrapper {
+            padding: 16px;
+            background-color: #eeeeee;
+            margin-bottom: 16px; /* Add space between the items */
+            width: 100%; /* Full width to the container for consistency */
+}
+
     `;
   }
   // LitElement rendering template of your element
