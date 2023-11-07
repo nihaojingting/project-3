@@ -32,6 +32,8 @@ export class TvApp extends LitElement {
         display: block;
         margin: 16px;
         padding: 16px;
+        border: 2px solid black;
+        width: 100;
       }
       `
     ];

@@ -28,6 +28,11 @@ export class TvChannel extends LitElement {
         display: block;
         box-sizing: border-box;
         margin-bottom: 16px;
+        border: 2px solid black;
+        width: 300px;
+        overflow-y: auto;
+        padding: 0; /* Adjusted padding to remove extra space */
+        box-sizing: border-box;
       }
 
       .wrapper {
@@ -36,7 +41,7 @@ export class TvChannel extends LitElement {
         justify-content: start;
         padding: 4px;
         background-color: #eeeeee;
-        width: 210px;
+        /* Removed the fixed width to allow the wrapper to expand to the host width */
         height: 48px;
         box-sizing: border-box;
         position: relative; /* Adjusted for positioning the circle */
