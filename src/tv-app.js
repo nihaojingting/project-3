@@ -26,40 +26,36 @@ export class TvApp extends LitElement {
   }
   // LitElement convention for applying styles JUST to our element
   static get styles() {
-  return [
-    css`
-      :host {
-        display: block;
-        margin: 16px auto; /* centers the element */
-        padding: 16px;
-        max-width: 800px; /* maximum width set to 800px, adjust as needed */
-        box-sizing: border-box; /* padding and border included in the width */
-      }
+    return [
+      css`
+       :host {
+          display: block;
+          margin: 16px auto; /* centers the element */
+          padding: 16px;
+          border: 2px solid black;
+          max-width: 800px; /* maximum width set to 800px, adjust as needed */
+          box-sizing: border-box; /* padding and border included in the width */
+        }
 
-      .border-wrapper {
-        border: 2px solid black;
-        padding: 16px;
-        box-sizing: border-box;
+        .wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: start;
+          padding: 4px;
+          background-color: #eeeeee;
+          height: 48px;
+          box-sizing: border-box;
+          position: relative; /* Adjusted for positioning the circle */
+          overflow: hidden;
       }
+      `
+      
 
-      .wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: start;
-        padding: 4px;
-        background-color: #eeeeee;
-        height: 48px;
-        box-sizing: border-box;
-        position: relative; /* Adjusted for positioning the circle */
-        overflow: hidden;
-      }
-    `
-  ];
-}
-
-render() {
-  return html`
-    <div class="border-wrapper">
+    ];
+  }
+  // LitElement rendering template of your element
+  render() {
+    return html`
       <h2>${this.name}</h2>
       ${
         this.listings.map(
@@ -73,18 +69,17 @@ render() {
           `
         )
       }
-    </div>
-    <div>
-      <!-- video -->
-      <!-- discord / chat - optional -->
-    </div>
-    <!-- dialog -->
-    <sl-dialog label="Dialog" class="dialog">
-      This should change the content box to be whatever heading was clicked on.
-      <sl-button slot="footer" variant="primary" @click="${this.closeDialog}">Close</sl-button>
-    </sl-dialog>
-  `;
-}
+      <div>
+        <!-- video -->
+        <!-- discord / chat - optional -->
+      </div>
+      <!-- dialog -->
+      <sl-dialog label="Dialog" class="dialog">
+        This should change the content box to be whatever heading was clicked on.
+        <sl-button slot="footer" variant="primary" @click="${this.closeDialog}">Close</sl-button>
+      </sl-dialog>
+    `;
+  }
 
   closeDialog(e) {
     const dialog = this.shadowRoot.querySelector('.dialog');
