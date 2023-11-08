@@ -28,14 +28,29 @@ export class TvApp extends LitElement {
   static get styles() {
     return [
       css`
-      :host {
-        display: block;
-        margin: 16px;
-        padding: 16px;
-        border: 2px solid black;
-        width: 100;
+       :host {
+          display: block;
+          margin: 16px auto; /* centers the element */
+          padding: 16px;
+          border: 2px solid black;
+          max-width: 800px; /* maximum width set to 800px, adjust as needed */
+          box-sizing: border-box; /* padding and border included in the width */
+        }
+
+        .wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: start;
+          padding: 4px;
+          background-color: #eeeeee;
+          height: 48px;
+          box-sizing: border-box;
+          position: relative; /* Adjusted for positioning the circle */
+          overflow: hidden;
       }
       `
+      
+
     ];
   }
   // LitElement rendering template of your element
