@@ -28,24 +28,32 @@ export class TvApp extends LitElement {
       css`
         :host {
           display: block;
-          margin: 16px auto;
+          margin: 16px;
           max-width: 800px;
           box-sizing: border-box;
         }
 
         .channels-container {
           border: 2px solid black;
-          padding: 16px;
+          margin-bottom: 16px;
           box-sizing: border-box;
-          margin-bottom: 16px; /* Adjusted for bottom margin only */
         }
 
         h2 {
-          margin-top: 0;
+          padding: 16px;
+          margin: 0;
+          background-color: #eee; /* Example background color */
         }
 
-        .wrapper {
-          /* ...existing styles (if any) for other elements inside your shadow DOM... */
+        tv-channel {
+          display: block;
+          padding: 16px;
+          border-bottom: 1px solid #ddd;
+          margin: 0;
+        }
+
+        tv-channel:last-of-type {
+          border-bottom: none;
         }
       `
     ];
@@ -65,12 +73,10 @@ export class TvApp extends LitElement {
           `
         )}
       </div>
-      <!-- Additional content can go here -->
       <div>
         <!-- video -->
         <!-- discord / chat - optional -->
       </div>
-      <!-- dialog -->
       <sl-dialog label="Dialog" class="dialog">
         This should change the content box to be whatever heading was clicked on.
         <sl-button slot="footer" variant="primary" @click="${this.closeDialog}">Close</sl-button>
