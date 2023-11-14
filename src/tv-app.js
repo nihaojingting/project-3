@@ -34,10 +34,12 @@ export class TvApp extends LitElement {
         }
 
         .channels-container {
+          display: inline-block; /* Adjusted to wrap the border tightly around the content */
           border: 2px solid black;
-          margin-bottom: 16px;
           box-sizing: border-box;
-        }
+          padding: 16px; /* You can adjust this padding to control the spacing inside the border */
+      }
+
 
         h2 {
           padding: 16px;
@@ -77,17 +79,17 @@ export class TvApp extends LitElement {
         <!-- video -->
         <!-- discord / chat - optional -->
       </div>
-      <sl-dialog label="Dialog" class="dialog">
+      <!-- <sl-dialog label="Dialog" class="dialog">
         This should change the content box to be whatever heading was clicked on.
         <sl-button slot="footer" variant="primary" @click="${this.closeDialog}">Close</sl-button>
-      </sl-dialog>
+      </sl-dialog> -->
     `;
   }
 
-  closeDialog(e) {
-    const dialog = this.shadowRoot.querySelector('.dialog');
-    dialog.hide();
-  }
+  // closeDialog(e) {
+  //   const dialog = this.shadowRoot.querySelector('.dialog');
+  //   dialog.hide();
+  // }
 
   itemClick(e) {
     console.log(e.target);
