@@ -9,6 +9,15 @@ export class TvApp extends LitElement {
     this.name = '';
     this.source = new URL('../assets/channels.json', import.meta.url).href;
     this.listings = [];
+    this.currentPage = 0;
+    this.contents = Array(9).fill('');
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.contents.forEach((_, index) => {
+      this.loadContent(index);
+    });
   }
 
   static get tag() {
@@ -20,6 +29,8 @@ export class TvApp extends LitElement {
       name: { type: String },
       source: { type: String },
       listings: { type: Array },
+      currentPage: { type: Number },
+      contents: { type: Array },
     };
   }
 
@@ -34,17 +45,16 @@ export class TvApp extends LitElement {
         }
 
         .channels-container {
-          display: inline-block; /* Adjusted to wrap the border tightly around the content */
+          display: inline-block;
           border: 2px solid black;
           box-sizing: border-box;
-          padding: 16px; /* You can adjust this padding to control the spacing inside the border */
-      }
-
+          padding: 16px;
+        }
 
         h2 {
           padding: 16px;
           margin: 0;
-          background-color: #eee; /* Example background color */
+          background-color: #eee;
         }
 
         tv-channel {
@@ -57,6 +67,16 @@ export class TvApp extends LitElement {
         tv-channel:last-of-type {
           border-bottom: none;
         }
+
+        .prev-page, .next-page {
+          height: 50px;
+          width: 90px;
+          outline: 1px solid black;
+          position: absolute;
+          bottom: 10px;
+        }
+        .prev-page { left: 5px; }
+        .next-page { right: 10px; }
       `
     ];
   }
@@ -74,22 +94,15 @@ export class TvApp extends LitElement {
             ></tv-channel>
           `
         )}
+        <div class="prev-page" @click="${this.handlePrevPageClick}">Previous Page</div>
+        <div class="next-page" @click="${this.handleNextPageClick}">Next Page</div>
       </div>
       <div>
         <!-- video -->
         <!-- discord / chat - optional -->
       </div>
-      <!-- <sl-dialog label="Dialog" class="dialog">
-        This should change the content box to be whatever heading was clicked on.
-        <sl-button slot="footer" variant="primary" @click="${this.closeDialog}">Close</sl-button>
-      </sl-dialog> -->
     `;
   }
-
-  // closeDialog(e) {
-  //   const dialog = this.shadowRoot.querySelector('.dialog');
-  //   dialog.hide();
-  // }
 
   itemClick(e) {
     console.log(e.target);
@@ -114,6 +127,24 @@ export class TvApp extends LitElement {
         this.listings = [...responseData.data.items];
       }
     });
+  }
+
+  handlePrevPageClick() {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.requestUpdate();
+    }
+  }
+
+  handleNextPageClick() {
+    if (this.currentPage < this.contents.length - 1) {
+      this.currentPage++;
+      this.requestUpdate();
+    }
+  }
+
+  async loadContent(index) {
+    // Implementation for loading content (similar to your first code sample)
   }
 }
 
