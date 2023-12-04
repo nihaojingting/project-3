@@ -69,11 +69,12 @@ export class TvApp extends LitElement {
         }
 
         .prev-page, .next-page {
-          height: 80px;
-          width: 100px;
+          height: 40px;
+          width: 60px;
           outline: 2px solid black;
           position: absolute;
           bottom: 10px;
+          text-size-adjust: 100%;
         }
         .prev-page { left: 5px; }
         .next-page { right: 10px; }
