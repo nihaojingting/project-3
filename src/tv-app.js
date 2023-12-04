@@ -69,9 +69,9 @@ export class TvApp extends LitElement {
         }
 
         .prev-page, .next-page {
-          height: 50px;
-          width: 90px;
-          outline: 1px solid black;
+          height: 80px;
+          width: 100px;
+          outline: 2px solid black;
           position: absolute;
           bottom: 10px;
         }
