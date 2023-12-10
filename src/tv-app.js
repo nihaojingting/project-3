@@ -48,7 +48,6 @@ export class TvApp extends LitElement {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-        position: relative; /* Establishing a positioning context for absolute children */
       }
 
       .course-topics {
@@ -56,6 +55,7 @@ export class TvApp extends LitElement {
         display: flex;
         flex-direction: column;
         margin-right: 20px;
+        position: relative; /* Establishing a positioning context for absolute children */
       }
 
       .content-box {
@@ -63,7 +63,7 @@ export class TvApp extends LitElement {
         font-size: 1.3em;
         border: 1px solid black;
         margin-bottom: 10px;
-        position: relative;
+        position: relative; /* New relative positioning context for next-page */
       }
 
       .button {
@@ -118,11 +118,11 @@ export class TvApp extends LitElement {
       }
 
       .prev-page {
-        left: 16px; /* Adjust as needed for exact positioning */
+        left: 16px; /* Position at the bottom-left of course-topics */
       }
 
       .next-page {
-        right: 16px; /* Adjust as needed for exact positioning */
+        right: 16px; /* Position at the bottom-right of content-box */
       }
 
       /* Apply the button styles to your topic buttons as well */
@@ -145,17 +145,17 @@ export class TvApp extends LitElement {
               </button>
             `
           )}
+          <div class="prev-page button" @click="${this.handlePrevPageClick}">
+            <span class="button__icon">←</span>
+            <span class="button__text">Previous Page</span>
+          </div>
         </div>
         <div class="content-box">
           ${unsafeHTML(this.contents[this.currentPage].htmlContent)}
-        </div>
-        <div class="prev-page button" @click="${this.handlePrevPageClick}">
-          <span class="button__icon">←</span>
-          <span class="button__text">Previous Page</span>
-        </div>
-        <div class="next-page button" @click="${this.handleNextPageClick}">
-          <span class="button__icon">→</span>
-          <span class="button__text">Next Page</span>
+          <div class="next-page button" @click="${this.handleNextPageClick}">
+            <span class="button__icon">→</span>
+            <span class="button__text">Next Page</span>
+          </div>
         </div>
       </div>
     `;
