@@ -1,90 +1,59 @@
 import { LitElement, html, css } from 'lit';
 
 export class TvChannel extends LitElement {
-  static count = 0; // Static counter to keep track of instance numbers
-
   constructor() {
     super();
     this.title = '';
     this.presenter = '';
-    this.number = TvChannel.count++; // Assign a sequential number to each instance
   }
 
   static get tag() {
     return 'tv-channel';
   }
-
+  
   static get properties() {
     return {
       title: { type: String },
       presenter: { type: String },
-      number: { type: Number }, // New property for the numbering
     };
   }
-
+  // CSS for Channels
   static get styles() {
     return css`
       :host {
-        display: block;
-        box-sizing: border-box;
-        margin-bottom: 16px;
-        border: 2px solid black;
-        width: 300px;
-        overflow-y: auto;
-        padding: 0; /* Adjusted padding to remove extra space */
-        box-sizing: border-box;
+        display: inline-flex;
       }
 
-      .wrapper {
+      .course-topic {
         display: flex;
-        align-items: center;
-        justify-content: start;
-        padding: 4px;
-        background-color: #eeeeee;
-        /* Removed the fixed width to allow the wrapper to expand to the host width */
-        height: 48px;
-        box-sizing: border-box;
-        position: relative; /* Adjusted for positioning the circle */
-        overflow: hidden;
+        flex-direction: column;
+        padding: 8px;
+        background-color: #d3d3d3;
+        margin-bottom: 10px;
+        line-height: 19px;
+        border-radius: 8px;
+        font-size: 1.5vw;
+        max-width: 200px;
+        width: auto;
       }
-
-      .number-circle {
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        background-color: blue;
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.75em; /* Adjust font size as needed */
-        position: absolute;
-        left: 8px; /* Adjust left as needed */
-        top: 50%;
-        transform: translateY(-50%); /* Center vertically */
+        
+   h3, h4 {
+        margin: 10px;
+        margin-left: 5px;
+        text-align: center;
       }
-
-      h3, h4 {
-        margin: 0;
-        margin-left: 36px; /* Adjust left margin to make space for the number */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font-size: smaller;
-        flex-shrink: 1;
-      }
+     
     `;
   }
-
+  // Rendering template
   render() {
     return html`
-      <div class="wrapper">
-        <div class="number-circle">${this.number}</div>
+      <div class="course-topic">
         <h3>${this.title}</h3>
         <h4>${this.presenter}</h4>
-      </div>
-    `;
+        <slot></slot>
+      </div>  
+      
+      `;
   }
 }
-
-customElements.define(TvChannel.tag, TvChannel);

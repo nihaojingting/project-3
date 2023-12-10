@@ -2,37 +2,45 @@ import { LitElement, html, css } from 'lit';
 import '@shoelace-style/shoelace/dist/components/dialog/dialog.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 import "./tv-channel.js";
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+
 
 export class TvApp extends LitElement {
+
   constructor() {
     super();
-    this.name = '';
-    this.source = new URL('../assets/channels.json', import.meta.url).href;
-    this.listings = [];
+    this.source = new URL('/assets/channels.json', import.meta.url).href;
+    this.selectedCourse = null;
     this.currentPage = 0;
     this.contents = Array(9).fill('');
   }
 
   connectedCallback() {
     super.connectedCallback();
+
     this.contents.forEach((_, index) => {
       this.loadContent(index);
     });
   }
+  
+
 
   static get tag() {
     return 'tv-app';
   }
+
 
   static get properties() {
     return {
       name: { type: String },
       source: { type: String },
       listings: { type: Array },
+      selectedCourse: { type: Object },
       currentPage: { type: Number },
-      contents: { type: Array },
+      contents: { type: Array }, 
     };
   }
+
 
   static get styles() {
     return [
@@ -40,113 +48,138 @@ export class TvApp extends LitElement {
         :host {
           display: block;
           margin: 16px;
-          max-width: 800px;
-          box-sizing: border-box;
-        }
-
-        .channels-container {
-          display: inline-block;
-          border: 2px solid black;
-          box-sizing: border-box;
           padding: 16px;
         }
 
-        h2 {
-          padding: 16px;
-          margin: 0;
-          background-color: #eee;
+        .container {
+          display: flex;
+          justify-content: space-between;
         }
 
-        tv-channel {
-          display: block;
-          padding: 16px;
-          border-bottom: 1px solid #ddd;
-          margin: 0;
+        .course-topics {
+          text-align: left;
+          padding: 10px;
+          margin-right: 1px;
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          width: auto;
+          margin-bottom: 10px;
+          border: 1px solid black;
         }
 
-        tv-channel:last-of-type {
-          border-bottom: none;
+        .content-box {
+          font-size: 1.3em;
+          border: 1px solid black;
+          width: 100%;
+          margin-bottom: 10px;
+          position: relative;
         }
 
-        .prev-page, .next-page {
-          height: 40px;
-          width: 60px;
-          outline: 2px solid black;
+        .active-page {
+          height: 10%;
+          outline: 1px solid black;
+        }
+
+        .prev-page {
+          height: 50px;
+          width: 90px;
+          outline: 1px solid black;
           position: absolute;
           bottom: 10px;
-          text-size-adjust: 100%;
+          left: 5px;
         }
-        .prev-page { left: 5px; }
-        .next-page { right: 10px; }
-      `
+
+        .next-page {
+          height: 50px;
+          width: 90px;
+          outline: 1px solid black;
+          position: absolute;
+          bottom: 10px;
+          right: 10px;
+        }
+      `,
     ];
   }
 
   render() {
     return html`
-      <div class="channels-container">
-        <h2>${this.name}</h2>
-        ${this.listings.map(
-          (item) => html`
-            <tv-channel 
-              title="${item.title}"
-              presenter="${item.metadata.author}"
-              @click="${this.itemClick}"
-            ></tv-channel>
-          `
-        )}
+      <div class="container">
+        <div class="course-topics">
+          ${this.contents.map(
+            (content, index) => html`
+              <button @click="${() => this.handleCourseClick(index)}">
+                ${content.title || `Topic ${index + 1}`}
+              </button>
+            `
+          )}
+        </div>
+        <div class="content-box">
+          ${unsafeHTML(this.contents[this.currentPage].htmlContent)}
+        </div>
         <div class="prev-page" @click="${this.handlePrevPageClick}">Previous Page</div>
         <div class="next-page" @click="${this.handleNextPageClick}">Next Page</div>
-      </div>
-      <div>
-        <!-- video -->
-        <!-- discord / chat - optional -->
       </div>
     `;
   }
 
-  itemClick(e) {
-    console.log(e.target);
-    const dialog = this.shadowRoot.querySelector('.dialog');
-    dialog.show();
+  
+
+
+
+ async updateSourceData(source) {
+    await fetch(source)
+      .then((resp) => (resp.ok ? resp.json() : null))
+      .then((responseData) => {
+      if (
+        responseData &&
+          responseData.status === 200 &&
+          responseData.data &&
+          responseData.data.items &&
+          responseData.data.items.length > 0
+        ) {
+          this.listings = [...responseData.data.items];
+          this.selectedCourse = this.listings[0]; 
+        }
+      });
   }
 
-  updated(changedProperties) {
-    if (super.updated) {
-      super.updated(changedProperties);
+
+  async loadContent(index) {
+    const fileName = `/assets/element${index + 1}.html`;
+    try {
+      const response = await fetch(fileName);
+      const htmlContent = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlContent, 'text/html');
+      const title = doc.querySelector('h1')?.textContent || `Element ${index + 1}`;
+      this.contents[index] = { htmlContent, title };
+      this.requestUpdate();
+    } catch (error) {
+      console.error(error); 
     }
-    changedProperties.forEach((oldValue, propName) => {
-      if (propName === "source" && this[propName]) {
-        this.updateSourceData(this[propName]);
-      }
-    });
   }
 
-  async updateSourceData(source) {
-    await fetch(source).then((resp) => resp.ok ? resp.json() : []).then((responseData) => {
-      if (responseData.status === 200 && responseData.data.items && responseData.data.items.length > 0) {
-        this.listings = [...responseData.data.items];
-      }
-    });
+  handleCourseClick(index) {
+    this.currentPage = index;
+    this.requestUpdate(); // Request an update to re-render the component
   }
 
   handlePrevPageClick() {
     if (this.currentPage > 0) {
       this.currentPage--;
-      this.requestUpdate();
+      this.requestUpdate(); // Request an update to re-render the component
     }
   }
 
   handleNextPageClick() {
     if (this.currentPage < this.contents.length - 1) {
       this.currentPage++;
-      this.requestUpdate();
+      this.requestUpdate(); // Request an update to re-render the component
     }
   }
-
-  async loadContent(index) {
-    // Implementation for loading content (similar to your first code sample)
-  }
 }
+
 
 customElements.define(TvApp.tag, TvApp);
