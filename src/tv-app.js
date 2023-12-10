@@ -5,7 +5,6 @@ import "./tv-channel.js";
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 export class TvApp extends LitElement {
-
   static get styles() {
     return css`
       :host {
@@ -16,22 +15,23 @@ export class TvApp extends LitElement {
 
       .container {
         display: flex;
-        flex-wrap: nowrap;
-        align-items: flex-start;
-        justify-content: space-between;
+        align-items: center; /* Center the buttons and content vertically */
+        justify-content: space-around; /* Space around to give some space between elements */
+        gap: 10px; /* Introduces a gap between flex items */
       }
 
       .course-topics {
         flex: 1;
-        margin-right: 10px;
+        margin-right: 10px; /* Space between course topics and content box */
       }
 
       .content-box {
-        flex: 2;
+        flex-grow: 1; /* Grow to use the space available */
+        flex-basis: 50%; /* Start off at 50% of the container's size */
         font-size: 1.3em;
         border: 1px solid black;
         padding: 16px;
-        margin-bottom: 10px;
+        box-sizing: border-box; /* Include padding and border in the element's total width */
       }
 
       .button {
@@ -39,7 +39,6 @@ export class TvApp extends LitElement {
         border: none;
         background-color: #ffffff;
         color: #000;
-        text-align: left;
         border-radius: 20px;
         cursor: pointer;
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -48,10 +47,7 @@ export class TvApp extends LitElement {
         display: flex;
         align-items: center;
         transition: background-color 0.3s, box-shadow 0.3s;
-        outline: none;
-        margin-bottom: 10px;
-        width: calc(100% - 40px);
-        box-sizing: border-box;
+        margin-bottom: 10px; /* Space below each button */
       }
 
       .button:hover {
@@ -64,14 +60,10 @@ export class TvApp extends LitElement {
       }
 
       .button__icon {
-        display: inline-block;
         padding: 10px;
         background-color: #0078d4;
         border-radius: 50%;
         color: white;
-        text-align: center;
-        line-height: 1;
-        margin-right: 15px;
         font-size: 16px;
       }
 
@@ -79,17 +71,10 @@ export class TvApp extends LitElement {
         flex-grow: 1;
       }
 
-      .navigation-buttons {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-
       .prev-page, .next-page {
         padding: 10px 20px;
-        margin: 16px 0;
-        text-align: center;
-        width: auto;
+        margin: 0 10px; /* Margin to the left and right of the buttons */
+        flex-shrink: 0; /* Prevent the buttons from shrinking */
       }
 
       @media (max-width: 768px) {
@@ -97,13 +82,9 @@ export class TvApp extends LitElement {
           flex-direction: column;
         }
 
-        .course-topics, .content-box {
-          margin-right: 0;
-        }
-
-        .navigation-buttons {
-          flex-direction: row;
-          justify-content: space-between;
+        .course-topics, .content-box, .prev-page, .next-page {
+          width: 100%; /* Full width on smaller screens */
+          margin: 10px 0; /* Margin on top and bottom */
         }
       }
     `;
@@ -145,23 +126,21 @@ export class TvApp extends LitElement {
             (content, index) => html`
               <button class="button" @click="${() => this.handleCourseClick(index)}">
                 <span class="button__icon">${index + 1}</span>
-                <span class="button__text">${content.title || `Topic ${index + 1}`}</span>
+                <span class="button__text">${content.title || `Element ${index + 1}`}</span>
               </button>
             `
           )}
         </div>
-        <div class="navigation-buttons">
-          <div class="prev-page button" @click="${this.handlePrevPageClick}">
-            <span class="button__icon">←</span>
-            <span class="button__text">Previous Page</span>
-          </div>
-          <div class="next-page button" @click="${this.handleNextPageClick}">
-            <span class="button__icon">→</span>
-            <span class="button__text">Next Page</span>
-          </div>
+        <div class="prev-page button" @click="${this.handlePrevPageClick}">
+          <span class="button__icon">←</span>
+          <span class="button__text">Previous Page</span>
         </div>
         <div class="content-box">
           ${unsafeHTML(this.contents[this.currentPage].htmlContent)}
+        </div>
+        <div class="next-page button" @click="${this.handleNextPageClick}">
+          <span class="button__icon">→</span>
+          <span class="button__text">Next Page</span>
         </div>
       </div>
     `;
