@@ -55,7 +55,6 @@ export class TvApp extends LitElement {
         display: flex;
         flex-direction: column;
         margin-right: 20px;
-        position: relative; /* Establishing a positioning context for absolute children */
       }
 
       .content-box {
@@ -63,7 +62,6 @@ export class TvApp extends LitElement {
         font-size: 1.3em;
         border: 1px solid black;
         margin-bottom: 10px;
-        position: relative; /* New relative positioning context for next-page */
       }
 
       .button {
@@ -111,18 +109,29 @@ export class TvApp extends LitElement {
         flex-grow: 1;
       }
 
+      .navigation {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+
       .prev-page, .next-page {
-        position: absolute;
-        bottom: 16px; /* Adjust as needed for exact positioning */
         padding: 10px 20px;
+        margin: 16px 0; /* Add some space at the top and bottom */
+        flex: 1;
+        text-align: center;
       }
-
+      
       .prev-page {
-        left: 16px; /* Position at the bottom-left of course-topics */
+        order: 1;
       }
-
+      
       .next-page {
-        right: 16px; /* Position at the bottom-right of content-box */
+        order: 3;
+      }
+      
+      .spacer {
+        flex: 2;
       }
 
       /* Apply the button styles to your topic buttons as well */
@@ -145,17 +154,20 @@ export class TvApp extends LitElement {
               </button>
             `
           )}
+        </div>
+        <div class="navigation">
           <div class="prev-page button" @click="${this.handlePrevPageClick}">
             <span class="button__icon">←</span>
             <span class="button__text">Previous Page</span>
           </div>
-        </div>
-        <div class="content-box">
-          ${unsafeHTML(this.contents[this.currentPage].htmlContent)}
+          <div class="spacer"></div>
           <div class="next-page button" @click="${this.handleNextPageClick}">
             <span class="button__icon">→</span>
             <span class="button__text">Next Page</span>
           </div>
+        </div>
+        <div class="content-box">
+          ${unsafeHTML(this.contents[this.currentPage].htmlContent)}
         </div>
       </div>
     `;
