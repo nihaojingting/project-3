@@ -32,7 +32,7 @@ export class TvApp extends LitElement {
       listings: { type: Array },
       selectedCourse: { type: Object },
       currentPage: { type: Number },
-      contents: { type: Array }, 
+      contents: { type: Array },
     };
   }
 
@@ -48,6 +48,7 @@ export class TvApp extends LitElement {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
+        position: relative; /* Establishing a positioning context for absolute children */
       }
 
       .course-topics {
@@ -96,30 +97,36 @@ export class TvApp extends LitElement {
 
       .button__icon {
         display: inline-block;
-        padding: 10px; /* Adjust this value to ensure a perfect circle */
+        padding: 10px; /* Ensures a perfect circle */
         background-color: #0078d4;
         border-radius: 50%;
         color: white;
         text-align: center;
-        line-height: 1; /* Adjust line height to ensure vertical centering */
+        line-height: 1; /* Ensures vertical centering */
         margin-right: 15px;
         font-size: 16px;
-}
-
+      }
 
       .button__text {
         flex-grow: 1;
       }
 
       .prev-page, .next-page {
-        /* Removed specific height/width and applied .button class styles */
-        position: static; /* Adjusted from absolute to static */
-        width: auto;
+        position: absolute;
+        bottom: 16px; /* Adjust as needed for exact positioning */
+        padding: 10px 20px;
+      }
+
+      .prev-page {
+        left: 16px; /* Adjust as needed for exact positioning */
+      }
+
+      .next-page {
+        right: 16px; /* Adjust as needed for exact positioning */
       }
 
       /* Apply the button styles to your topic buttons as well */
       .course-topics button {
-        /* Apply the .button class styles */
         text-align: left;
         justify-content: start;
       }
@@ -166,7 +173,7 @@ export class TvApp extends LitElement {
           responseData.data.items.length > 0
         ) {
           this.listings = [...responseData.data.items];
-          this.selectedCourse = this.listings[0]; 
+          this.selectedCourse = this.listings[0];
         }
       });
   }
@@ -182,26 +189,26 @@ export class TvApp extends LitElement {
       this.contents[index] = { htmlContent, title };
       this.requestUpdate();
     } catch (error) {
-      console.error(error); 
+      console.error(error);
     }
   }
 
   handleCourseClick(index) {
     this.currentPage = index;
-    this.requestUpdate(); // Request an update to re-render the component
+    this.requestUpdate();
   }
 
   handlePrevPageClick() {
     if (this.currentPage > 0) {
       this.currentPage--;
-      this.requestUpdate(); // Request an update to re-render the component
+      this.requestUpdate();
     }
   }
 
   handleNextPageClick() {
     if (this.currentPage < this.contents.length - 1) {
       this.currentPage++;
-      this.requestUpdate(); // Request an update to re-render the component
+      this.requestUpdate();
     }
   }
 }
