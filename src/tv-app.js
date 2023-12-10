@@ -4,7 +4,6 @@ import '@shoelace-style/shoelace/dist/components/button/button.js';
 import "./tv-channel.js";
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
-
 export class TvApp extends LitElement {
 
   constructor() {
@@ -17,18 +16,14 @@ export class TvApp extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-
     this.contents.forEach((_, index) => {
       this.loadContent(index);
     });
   }
-  
-
 
   static get tag() {
     return 'tv-app';
   }
-
 
   static get properties() {
     return {
@@ -41,99 +36,138 @@ export class TvApp extends LitElement {
     };
   }
 
-
   static get styles() {
-    return [
-      css`
-        :host {
-          display: block;
-          margin: 16px;
-          padding: 16px;
-        }
+    return css`
+      :host {
+        display: block;
+        margin: 16px;
+        padding: 16px;
+      }
 
-        .container {
-          display: flex;
-          justify-content: space-between;
-        }
+      .container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
 
-        .course-topics {
-          text-align: left;
-          padding: 10px;
-          margin-right: 1px;
-          display: flex;
-          flex-direction: column;
-          flex-wrap: wrap;
-          justify-content: flex-start;
-          width: auto;
-          margin-bottom: 10px;
-          border: 1px solid black;
-        }
+      .course-topics {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        margin-right: 20px;
+      }
 
-        .content-box {
-          font-size: 1.3em;
-          border: 1px solid black;
-          width: 100%;
-          margin-bottom: 10px;
-          position: relative;
-        }
+      .content-box {
+        flex: 3 1 60%;
+        font-size: 1.3em;
+        border: 1px solid black;
+        margin-bottom: 10px;
+        position: relative;
+      }
 
-        .active-page {
-          height: 10%;
-          outline: 1px solid black;
-        }
+      .button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #ffffff;
+        color: #000;
+        text-align: left;
+        border-radius: 20px;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        font-weight: bold;
+        font-size: 1em;
+        display: flex;
+        align-items: center;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        outline: none;
+        margin-bottom: 10px;
+        width: calc(100% - 40px); /* Adjusted for padding */
+        box-sizing: border-box;
+      }
 
-        .prev-page {
-          height: 50px;
-          width: 90px;
-          outline: 1px solid black;
-          position: absolute;
-          bottom: 10px;
-          left: 5px;
-        }
+      .button:hover {
+        background-color: #e8e8e8;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      }
 
-        .next-page {
-          height: 50px;
-          width: 90px;
-          outline: 1px solid black;
-          position: absolute;
-          bottom: 10px;
-          right: 10px;
-        }
-      `,
-    ];
+      .button:active {
+        background-color: #dcdcdc;
+      }
+
+      .button__icon {
+        display: inline-block;
+        width: auto;
+        height: auto;
+        background-color: #0078d4;
+        border-radius: 50%;
+        color: white;
+        text-align: center;
+        line-height: 24px;
+        margin-right: 15px;
+        font-size: 16px;
+        padding: 5px;
+      }
+
+      .button__text {
+        flex-grow: 1;
+      }
+
+      .nav-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .prev-page, .next-page {
+        margin: 0;
+        width: auto;
+        position: static;
+      }
+
+      .course-topics button {
+        text-align: left;
+        justify-content: start;
+      }
+    `;
   }
 
   render() {
     return html`
       <div class="container">
-        <div class="course-topics">
-          ${this.contents.map(
-            (content, index) => html`
-              <button @click="${() => this.handleCourseClick(index)}">
-                ${content.title || `Topic ${index + 1}`}
-              </button>
-            `
-          )}
+        <div class="nav-wrapper">
+          <div class="prev-page button" @click="${this.handlePrevPageClick}">
+            <span class="button__icon">←</span>
+            <span class="button__text">Previous Page</span>
+          </div>
+          <div class="course-topics">
+            ${this.contents.map(
+              (content, index) => html`
+                <button class="button" @click="${() => this.handleCourseClick(index)}">
+                  <span class="button__icon">${index + 1}</span>
+                  <span class="button__text">${content.title || `Topic ${index + 1}`}</span>
+                </button>
+              `
+            )}
+          </div>
+          <div class="next-page button" @click="${this.handleNextPageClick}">
+            <span class="button__icon">→</span>
+            <span class="button__text">Next Page</span>
+          </div>
         </div>
         <div class="content-box">
           ${unsafeHTML(this.contents[this.currentPage].htmlContent)}
         </div>
-        <div class="prev-page" @click="${this.handlePrevPageClick}">Previous Page</div>
-        <div class="next-page" @click="${this.handleNextPageClick}">Next Page</div>
       </div>
     `;
   }
 
-  
-
-
-
- async updateSourceData(source) {
+  async updateSourceData(source) {
     await fetch(source)
       .then((resp) => (resp.ok ? resp.json() : null))
       .then((responseData) => {
-      if (
-        responseData &&
+        if (
+          responseData &&
           responseData.status === 200 &&
           responseData.data &&
           responseData.data.items &&
@@ -144,7 +178,6 @@ export class TvApp extends LitElement {
         }
       });
   }
-
 
   async loadContent(index) {
     const fileName = `/assets/element${index + 1}.html`;
@@ -180,6 +213,5 @@ export class TvApp extends LitElement {
     }
   }
 }
-
 
 customElements.define(TvApp.tag, TvApp);
