@@ -6,6 +6,109 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 export class TvApp extends LitElement {
 
+  static get styles() {
+    return css`
+      :host {
+        display: block;
+        margin: 16px;
+        padding: 16px;
+      }
+
+      .container {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        justify-content: space-between;
+      }
+
+      .course-topics {
+        flex: 1;
+        margin-right: 10px;
+      }
+
+      .content-box {
+        flex: 2;
+        font-size: 1.3em;
+        border: 1px solid black;
+        padding: 16px;
+        margin-bottom: 10px;
+      }
+
+      .button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #ffffff;
+        color: #000;
+        text-align: left;
+        border-radius: 20px;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        font-weight: bold;
+        font-size: 1em;
+        display: flex;
+        align-items: center;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        outline: none;
+        margin-bottom: 10px;
+        width: calc(100% - 40px);
+        box-sizing: border-box;
+      }
+
+      .button:hover {
+        background-color: #e8e8e8;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      }
+
+      .button:active {
+        background-color: #dcdcdc;
+      }
+
+      .button__icon {
+        display: inline-block;
+        padding: 10px;
+        background-color: #0078d4;
+        border-radius: 50%;
+        color: white;
+        text-align: center;
+        line-height: 1;
+        margin-right: 15px;
+        font-size: 16px;
+      }
+
+      .button__text {
+        flex-grow: 1;
+      }
+
+      .navigation-buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .prev-page, .next-page {
+        padding: 10px 20px;
+        margin: 16px 0;
+        text-align: center;
+        width: auto;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          flex-direction: column;
+        }
+
+        .course-topics, .content-box {
+          margin-right: 0;
+        }
+
+        .navigation-buttons {
+          flex-direction: row;
+          justify-content: space-between;
+        }
+      }
+    `;
+  }
+
   constructor() {
     super();
     this.source = new URL('/assets/channels.json', import.meta.url).href;
@@ -27,119 +130,11 @@ export class TvApp extends LitElement {
 
   static get properties() {
     return {
-      name: { type: String },
       source: { type: String },
-      listings: { type: Array },
       selectedCourse: { type: Object },
       currentPage: { type: Number },
       contents: { type: Array },
     };
-  }
-
-  static get styles() {
-    return css`
-      :host {
-        display: block;
-        margin: 16px;
-        padding: 16px;
-      }
-
-      .container {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-      }
-
-      .course-topics {
-        flex: 1 1 auto;
-        display: flex;
-        flex-direction: column;
-        margin-right: 20px;
-      }
-
-      .content-box {
-        flex: 3 1 60%;
-        font-size: 1.3em;
-        border: 1px solid black;
-        margin-bottom: 10px;
-      }
-
-      .button {
-        padding: 10px 20px;
-        border: none;
-        background-color: #ffffff;
-        color: #000;
-        text-align: left;
-        border-radius: 20px;
-        cursor: pointer;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        font-weight: bold;
-        font-size: 1em;
-        display: flex;
-        align-items: center;
-        transition: background-color 0.3s, box-shadow 0.3s;
-        outline: none;
-        margin-bottom: 10px;
-        width: calc(100% - 40px); /* Adjusted for padding */
-        box-sizing: border-box;
-      }
-
-      .button:hover {
-        background-color: #e8e8e8;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      }
-
-      .button:active {
-        background-color: #dcdcdc;
-      }
-
-      .button__icon {
-        display: inline-block;
-        padding: 10px; /* Ensures a perfect circle */
-        background-color: #0078d4;
-        border-radius: 50%;
-        color: white;
-        text-align: center;
-        line-height: 1; /* Ensures vertical centering */
-        margin-right: 15px;
-        font-size: 16px;
-      }
-
-      .button__text {
-        flex-grow: 1;
-      }
-
-      .navigation {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-      }
-
-      .prev-page, .next-page {
-        padding: 10px 20px;
-        margin: 16px 0; /* Add some space at the top and bottom */
-        flex: 1;
-        text-align: center;
-      }
-      
-      .prev-page {
-        order: 1;
-      }
-      
-      .next-page {
-        order: 3;
-      }
-      
-      .spacer {
-        flex: 2;
-      }
-
-      /* Apply the button styles to your topic buttons as well */
-      .course-topics button {
-        text-align: left;
-        justify-content: start;
-      }
-    `;
   }
 
   render() {
@@ -155,12 +150,11 @@ export class TvApp extends LitElement {
             `
           )}
         </div>
-        <div class="navigation">
+        <div class="navigation-buttons">
           <div class="prev-page button" @click="${this.handlePrevPageClick}">
             <span class="button__icon">←</span>
             <span class="button__text">Previous Page</span>
           </div>
-          <div class="spacer"></div>
           <div class="next-page button" @click="${this.handleNextPageClick}">
             <span class="button__icon">→</span>
             <span class="button__text">Next Page</span>
