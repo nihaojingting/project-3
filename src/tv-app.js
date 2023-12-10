@@ -96,8 +96,9 @@ export class TvApp extends LitElement {
 
       .button__icon {
         display: inline-block;
-        width: auto;
-        height: auto;
+        padding: 5px; /* Adjust this value to create a perfect circle */
+        width: auto; /* Change from fixed width to auto */
+        height: auto; /* Change from fixed height to auto */
         background-color: #0078d4;
         border-radius: 50%;
         color: white;
@@ -105,27 +106,21 @@ export class TvApp extends LitElement {
         line-height: 24px;
         margin-right: 15px;
         font-size: 16px;
-        padding: 5px;
       }
 
       .button__text {
         flex-grow: 1;
       }
 
-      .nav-wrapper {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-      }
-
       .prev-page, .next-page {
-        margin: 0;
+        /* Removed specific height/width and applied .button class styles */
+        position: static; /* Adjusted from absolute to static */
         width: auto;
-        position: static;
       }
 
+      /* Apply the button styles to your topic buttons as well */
       .course-topics button {
+        /* Apply the .button class styles */
         text-align: left;
         justify-content: start;
       }
@@ -135,28 +130,26 @@ export class TvApp extends LitElement {
   render() {
     return html`
       <div class="container">
-        <div class="nav-wrapper">
-          <div class="prev-page button" @click="${this.handlePrevPageClick}">
-            <span class="button__icon">←</span>
-            <span class="button__text">Previous Page</span>
-          </div>
-          <div class="course-topics">
-            ${this.contents.map(
-              (content, index) => html`
-                <button class="button" @click="${() => this.handleCourseClick(index)}">
-                  <span class="button__icon">${index + 1}</span>
-                  <span class="button__text">${content.title || `Topic ${index + 1}`}</span>
-                </button>
-              `
-            )}
-          </div>
-          <div class="next-page button" @click="${this.handleNextPageClick}">
-            <span class="button__icon">→</span>
-            <span class="button__text">Next Page</span>
-          </div>
+        <div class="course-topics">
+          ${this.contents.map(
+            (content, index) => html`
+              <button class="button" @click="${() => this.handleCourseClick(index)}">
+                <span class="button__icon">${index + 1}</span>
+                <span class="button__text">${content.title || `Topic ${index + 1}`}</span>
+              </button>
+            `
+          )}
         </div>
         <div class="content-box">
           ${unsafeHTML(this.contents[this.currentPage].htmlContent)}
+        </div>
+        <div class="prev-page button" @click="${this.handlePrevPageClick}">
+          <span class="button__icon">←</span>
+          <span class="button__text">Previous Page</span>
+        </div>
+        <div class="next-page button" @click="${this.handleNextPageClick}">
+          <span class="button__icon">→</span>
+          <span class="button__text">Next Page</span>
         </div>
       </div>
     `;
