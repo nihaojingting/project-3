@@ -96,17 +96,16 @@ export class TvApp extends LitElement {
 
       .button__icon {
         display: inline-block;
-        padding: 5px; /* Adjust this value to create a perfect circle */
-        width: auto; /* Change from fixed width to auto */
-        height: auto; /* Change from fixed height to auto */
+        padding: 10px; /* Adjust this value to ensure a perfect circle */
         background-color: #0078d4;
         border-radius: 50%;
         color: white;
         text-align: center;
-        line-height: 24px;
+        line-height: 1; /* Adjust line height to ensure vertical centering */
         margin-right: 15px;
         font-size: 16px;
-      }
+}
+
 
       .button__text {
         flex-grow: 1;
