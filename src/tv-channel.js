@@ -5,6 +5,7 @@ export class TvChannel extends LitElement {
     super();
     this.title = '';
     this.presenter = '';
+    this.videoUrl = ''; // New property for video URL
   }
 
   static get tag() {
@@ -15,9 +16,11 @@ export class TvChannel extends LitElement {
     return {
       title: { type: String },
       presenter: { type: String },
+      videoUrl: { type: String }, // Declare the new property
     };
   }
-  // CSS for Channels
+  
+  // CSS for Channels (existing styles)
   static get styles() {
     return css`
       :host {
@@ -37,23 +40,35 @@ export class TvChannel extends LitElement {
         width: auto;
       }
         
-   h3, h4 {
+      h3, h4 {
         margin: 10px;
         margin-left: 5px;
         text-align: center;
       }
-     
+
+      video {
+        width: 100%; /* Make video responsive */
+        height: auto;
+        border-radius: 8px; /* Align with the style of the course topic */
+        background-color: black;
+      }
     `;
   }
-  // Rendering template
+
+  // Rendering template with video player
   render() {
     return html`
       <div class="course-topic">
         <h3>${this.title}</h3>
         <h4>${this.presenter}</h4>
+        <video controls>
+          <source src="${this.videoUrl}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
         <slot></slot>
-      </div>  
-      
-      `;
+      </div>
+    `;
   }
 }
+
+customElements.define(TvChannel.tag, TvChannel);
