@@ -5,7 +5,7 @@ export class TvChannel extends LitElement {
     super();
     this.title = '';
     this.presenter = '';
-    this.videoUrl = ''; // New property for video URL
+    this.videoUrl = ''; // URL for YouTube video embed
   }
 
   static get tag() {
@@ -16,7 +16,7 @@ export class TvChannel extends LitElement {
     return {
       title: { type: String },
       presenter: { type: String },
-      videoUrl: { type: String }, // Declare the new property
+      videoUrl: { type: String }, // Declare the property for video URL
     };
   }
   
@@ -46,25 +46,26 @@ export class TvChannel extends LitElement {
         text-align: center;
       }
 
-      video {
-        width: 100%; /* Make video responsive */
-        height: auto;
+      iframe {
+        width: 100%; /* Stretch the iframe to fit the content box */
+        height: auto; /* Adjust height automatically */
         border-radius: 8px; /* Align with the style of the course topic */
-        background-color: black;
       }
     `;
   }
 
-  // Rendering template with video player
+  // Rendering template with YouTube video iframe
   render() {
     return html`
       <div class="course-topic">
         <h3>${this.title}</h3>
         <h4>${this.presenter}</h4>
-        <video controls>
-          <source src="${this.videoUrl}" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+        <iframe
+          src="${this.videoUrl}"
+          frameborder="0"
+          allowfullscreen
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+        </iframe>
         <slot></slot>
       </div>
     `;
