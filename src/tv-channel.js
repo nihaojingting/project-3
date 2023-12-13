@@ -5,7 +5,6 @@ export class TvChannel extends LitElement {
     super();
     this.title = '';
     this.presenter = '';
-    this.videoUrl = ''; // URL for YouTube video embed
   }
 
   static get tag() {
@@ -16,11 +15,9 @@ export class TvChannel extends LitElement {
     return {
       title: { type: String },
       presenter: { type: String },
-      videoUrl: { type: String }, // Declare the property for video URL
     };
   }
-  
-  // CSS for Channels (existing styles)
+  // CSS for Channels
   static get styles() {
     return css`
       :host {
@@ -40,36 +37,23 @@ export class TvChannel extends LitElement {
         width: auto;
       }
         
-      h3, h4 {
+   h3, h4 {
         margin: 10px;
         margin-left: 5px;
         text-align: center;
       }
-
-      iframe {
-        width: 100%; /* Stretch the iframe to fit the content box */
-        height: auto; /* Adjust height automatically */
-        border-radius: 8px; /* Align with the style of the course topic */
-      }
+     
     `;
   }
-
-  // Rendering template with YouTube video iframe
+  // Rendering template
   render() {
     return html`
       <div class="course-topic">
         <h3>${this.title}</h3>
         <h4>${this.presenter}</h4>
-        <iframe
-          src="${this.videoUrl}"
-          frameborder="0"
-          allowfullscreen
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-        </iframe>
         <slot></slot>
-      </div>
-    `;
+      </div>  
+      
+      `;
   }
 }
-
-customElements.define(TvChannel.tag, TvChannel);
